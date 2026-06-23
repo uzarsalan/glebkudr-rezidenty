@@ -12,7 +12,7 @@ export default function Footer() {
         </div>
         <div className="footer-meta mono">
           <span>© Глеб Кудрявцев · 2026</span>
-          <span>раздел сайта glebkudr.com · демо-сборка</span>
+          <span>glebkudr.com</span>
         </div>
       </div>
     </footer>

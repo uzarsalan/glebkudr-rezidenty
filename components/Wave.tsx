@@ -43,7 +43,6 @@ export default function Wave() {
               </div>
             </div>
           </div>
-          <p className="mock-note mono">// имена и истории раскрою на старте когорты — выдуманных лиц не рисую</p>
         </div>
 
         <p className="arrow-out">Зайдёшь сейчас и окажешься в самом ядре, которое мы собираем вместе.</p>
