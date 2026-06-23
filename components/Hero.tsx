@@ -8,7 +8,7 @@ export default function Hero() {
         <div className="hero-lead">
           <span className="kicker">// программа «Резиденты»</span>
           <h1 className="hero-h1">
-            В&nbsp;одиночку с&nbsp;ИИ легко отстать. В&nbsp;лаборатории&nbsp;&mdash; нет.
+            В&nbsp;одиночку с&nbsp;ИИ легко отстать от&nbsp;фронтира. В&nbsp;лаборатории&nbsp;&mdash; нет.
           </h1>
           <p className="hero-sub">
             Закрытая лаборатория практиков, которые строят с ИИ: дипломный проект среди равных, коллективный радар фронтира, вход по интервью. Ведёт Глеб Кудрявцев, экс-CPO Skyeng.
