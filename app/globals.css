@@ -271,6 +271,7 @@ img { max-width: 100%; display: block; }
    номер → заголовок → svg-иконка → описание, крупная стрелка navy в промежутке */
 .stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; margin-top: 1.75rem; position: relative; }
 .stepper--3 { grid-template-columns: repeat(3, 1fr); }
+.stepper + .hint, .stepper + .arrow-out { margin-top: 2rem; }
 .step { position: relative; background: transparent; border: 0; box-shadow: none; border-radius: 0; padding: 0; }
 .step-num { display: block; font-family: var(--font-mono); font-size: 15px; font-weight: 800; color: var(--sc, var(--accent)); }
 .step h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 6px 0 16px; }
