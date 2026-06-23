@@ -10,7 +10,7 @@ export default function Pricing() {
             <div className="price">10 000 ₽<span className="price-per">/мес + вклад</span></div>
             <ul className="price-list">
               <li>встречи, радар, защита диплома</li>
-              <li>ведёшь дипломный проект</li>
+              <li>ведение дипломного проекта</li>
               <li>вклад делом: спикерство ≥1 раз в 6 мес, разборы или билдинг под брендом</li>
             </ul>
             <a className="btn btn-a1 btn-block" href="#apply">Подать на резидента</a>
@@ -28,7 +28,7 @@ export default function Pricing() {
         <p className="pricing-rule">
           <b>Правило:</b> Резидент двигает лабораторию вперёд и поэтому платит меньше. Наблюдатель только пользуется средой и доплачивает за это. Так отдающих в лабе всегда больше, чем берущих.
         </p>
-        <p className="hint mono">мест в первой волне ограничено · без контракта, выходишь помесячно</p>
+        <p className="hint mono">мест в первой волне ограничено · без контракта, выход помесячно</p>
       </div>
     </section>
   );

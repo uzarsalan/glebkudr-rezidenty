@@ -18,7 +18,7 @@ export default function Assess() {
     setResult(null);
 
     if (text.length < 8) {
-      setError("Напиши чуть подробнее — пары слов мало, чтобы оценить уровень.");
+      setError("Пары слов мало, чтобы оценить уровень — стоит описать подробнее.");
       return;
     }
 
@@ -33,10 +33,10 @@ export default function Assess() {
       if (r.ok && data && data.verdict) {
         setResult({ verdict: data.verdict, level: data.level, reason: data.reason });
       } else {
-        setError("ИИ-ассистент сейчас недоступен. Попробуй ещё раз через минуту — или сразу подай заявку, на интервью разберёмся.");
+        setError("ИИ-ассистент сейчас недоступен. Можно попробовать ещё раз через минуту — или сразу подать заявку, на интервью разберёмся.");
       }
     } catch {
-      setError("Не получилось связаться с ассистентом. Попробуй ещё раз — или подай заявку напрямую.");
+      setError("Не получилось связаться с ассистентом. Можно попробовать ещё раз — или подать заявку напрямую.");
     } finally {
       setLoading(false);
     }
@@ -52,9 +52,9 @@ export default function Assess() {
         <span className="kicker">
           // ии-самооценка <span className="ai-badge mono">⚡ работает на ИИ</span>
         </span>
-        <h2>Проверь, твой ли это уровень</h2>
+        <h2>Проверка уровня</h2>
         <p className="lead">
-          Напиши, что ты строишь с ИИ. ИИ-ассистент лаборатории за пять секунд скажет, куда ты ближе: <b>резидент</b>, <b>наблюдатель</b> или <b>пока рано</b> (и с чего начать).
+          Короткое описание проекта на ИИ — и ассистент лаборатории за пять секунд подскажет, куда ближе: <b>резидент</b>, <b>наблюдатель</b> или <b>пока рано</b> (и с чего начать).
         </p>
 
         <div className="card-term assess-panel" data-assess-scope>
@@ -65,7 +65,7 @@ export default function Assess() {
           </div>
           <div className="term-body mono">
             <p className="console-q">
-              <span className="c-com">// опиши проект и свою роль в нём</span>
+              <span className="c-com">// проект и роль в нём</span>
             </p>
             <form className="assess-form" onSubmit={onSubmit}>
               <div className="console-line">

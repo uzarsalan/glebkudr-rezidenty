@@ -15,7 +15,7 @@ export default function How() {
               <line x1="8.5" y1="14.5" x2="15.5" y2="14.5" />
               <line x1="8.5" y1="18" x2="13" y2="18" />
             </svg>
-            <p>Коротко расскажи, что строишь с ИИ.</p>
+            <p>Коротко: что за проект на ИИ.</p>
           </li>
           <li className="step s-navy">
             <span className="step-num mono">02</span>
@@ -26,7 +26,7 @@ export default function How() {
               <rect x="12" y="9" width="9" height="8" rx="2" />
               <path d="M17 17v2l-2-2" />
             </svg>
-            <p>30 минут про твой уровень и ценности лаборатории.</p>
+            <p>30 минут про уровень и ценности лаборатории.</p>
           </li>
           <li className="step s-green">
             <span className="step-num mono">03</span>
@@ -39,10 +39,10 @@ export default function How() {
               <path d="M21 19c0-2.4-1.9-3.8-4.4-3.8" />
               <path d="M7.4 20c0-3 2-4.8 4.6-4.8s4.6 1.8 4.6 4.8" />
             </svg>
-            <p>При совпадении входишь в стартовую когорту.</p>
+            <p>При совпадении — место в стартовой когорте.</p>
           </li>
         </ol>
-        <p className="arrow-out">На отборе важно одно: что ты делаешь руками.</p>
+        <p className="arrow-out">На отборе важно одно: что человек делает руками.</p>
       </div>
     </section>
   );

@@ -50,21 +50,21 @@ export default function Apply() {
     <section id="apply" className="section section-paper-2">
       <div className="wrap narrow">
         <span className="kicker">// заявка</span>
-        <h2>Перерос потолок в одиночку?</h2>
+        <h2>В одиночку с ИИ потолок уже близко?</h2>
         <p className="lead">Первая волна собирается прямо сейчас. Попасть можно через интервью.</p>
 
         <form id="apply-form" className="apply-form card-paper" onSubmit={onSubmit}>
           <div className="field">
             <label htmlFor="f-name">Имя</label>
-            <input id="f-name" name="name" type="text" required placeholder="Как тебя зовут" />
+            <input id="f-name" name="name" type="text" required placeholder="Имя и фамилия" />
           </div>
           <div className="field">
             <label htmlFor="f-contact">Контакт (tg / email)</label>
             <input id="f-contact" name="contact" type="text" required placeholder="@username или mail@example.com" />
           </div>
           <div className="field">
-            <label htmlFor="f-build">Что строишь с ИИ (1–2 предложения)</label>
-            <textarea id="f-build" name="build" rows={3} required placeholder="Коротко о проекте и о том, как используешь ИИ"></textarea>
+            <label htmlFor="f-build">Что за проект на ИИ (1–2 предложения)</label>
+            <textarea id="f-build" name="build" rows={3} required placeholder="Коротко о проекте и роли ИИ в нём"></textarea>
           </div>
           <div className="field">
             <label htmlFor="f-link">Ссылка на проект <span className="opt mono">опц.</span></label>

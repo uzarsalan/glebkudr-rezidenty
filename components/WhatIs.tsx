@@ -8,12 +8,12 @@ export default function WhatIs() {
           <div className="num-card">
             <span className="num mono">01</span>
             <span className="num-kicker mono">программа</span>
-            <p>Дипломный проект ведёшь столько, сколько нужно. У программы нет выпуска.</p>
+            <p>Дипломный проект длится столько, сколько нужно. У программы нет выпуска.</p>
           </div>
           <div className="num-card">
             <span className="num mono">02</span>
             <span className="num-kicker mono">вход</span>
-            <p>Через интервью, поэтому вокруг практики твоего уровня и выше.</p>
+            <p>Через интервью, поэтому вокруг практики того же уровня и выше.</p>
           </div>
           <div className="num-card">
             <span className="num mono">03</span>
@@ -21,7 +21,7 @@ export default function WhatIs() {
             <p>Каждый строит своё, держит фронтир вместе со всеми и сам выступает.</p>
           </div>
         </div>
-        <p className="arrow-out">Здесь из «умею в ИИ» вырастаешь в того, кто задаёт планку.</p>
+        <p className="arrow-out">Здесь из «умею в ИИ» вырастают в тех, кто задаёт планку.</p>
       </div>
     </section>
   );
