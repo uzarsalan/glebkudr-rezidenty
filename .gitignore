@@ -42,3 +42,4 @@ next-env.d.ts
 
 # заявки с формы
 applications.jsonl
+.gstack/
