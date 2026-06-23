@@ -432,6 +432,8 @@ img { max-width: 100%; display: block; }
 
 /* ------------------------------ footer ---------------------------------- */
 .site-footer { background: var(--dark-2); color: rgba(255,255,255,.6); padding: 3rem 0; }
+.footer-cta-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding-bottom: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.12); }
+.footer-cta-label { color: rgba(255,255,255,.82); font-size: 1rem; font-weight: 600; }
 .site-footer .logo-mark { border-color: rgba(255,255,255,.5); color: #fff; }
 .footer-inner { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
 .footer-desc { margin: .75rem 0 0; max-width: 32ch; color: rgba(255,255,255,.5); font-size: .95rem; }

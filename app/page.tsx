@@ -23,16 +23,16 @@ export default function Home() {
       <main>
         <Hero />
         <Problem />
-        <Assess />
         <WhatIs />
+        <Gleb />
         <Week />
         <Radar />
         <Why />
         <Referral />
         <Diploma />
+        <Assess />
         <Wave />
         <Pricing />
-        <Gleb />
         <How />
         <Faq />
         <Apply />
