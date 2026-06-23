@@ -40,7 +40,6 @@ export default function Wave() {
               <div className="slot-ava slot-ava--open">+</div>
               <div className="slot-meta mono">
                 <b>осталось несколько мест</b>
-                <span className="slot-role">твоё?</span>
               </div>
             </div>
           </div>
