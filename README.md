@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Резиденты — раздел сайта ИИ-лаборатории Глеба Кудрявцева
 
-## Getting Started
+Тестовое задание: раздел сайта про закрытую платную ИИ-лабораторию «Резиденты»
+для продвинутых практиков. Дизайн снят 1:1 с [glebkudr.com](https://glebkudr.com),
+весь продуктовый ресёрч, копирайт и обе живые ИИ-механики сделаны с ИИ.
 
-First, run the development server:
+## Что это
+
+Лендинг закрытого ИИ-сообщества: вход по интервью, дипломный проект среди равных,
+принцип вовлечённого участия, два тарифа (Резидент / Наблюдатель). Подробное
+**продуктовое обоснование** — в [`docs/PRODUCT.md`](docs/PRODUCT.md).
+
+## Стек
+
+- **Next.js 16** (App Router) · **React 19** · **TypeScript**
+- Страница пререндерится (SSG), как на сайте Глеба
+- Чистый CSS (без UI-фреймворка), визуальный язык снят с glebkudr.com 1:1
+- Route handlers для двух API, минимум зависимостей
+
+## Две живые ИИ-механики
+
+1. **Радар недели** — ИИ-агент собрал 5 реальных свежих событий ИИ-фронтира через
+   веб-поиск (каждое с источником), рендерится живым терминалом в hero.
+2. **ИИ-самооценка** — посетитель пишет, что строит → вердикт резидент / пока рано /
+   наблюдатель. С `ANTHROPIC_API_KEY` — живой Anthropic API; без ключа — прозрачный
+   фолбэк-эвристика в браузере.
+
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+# прод:
+npm run build && npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Для живой ИИ-самооценки задать в окружении `ANTHROPIC_API_KEY` (без него работает
+фолбэк). Приём заявок — `app/api/apply` (пишет в `applications.jsonl`; на проде
+точка замены на CRM/бота).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Документы
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Файл | О чём |
+|------|-------|
+| [`docs/PRODUCT.md`](docs/PRODUCT.md) | Продуктовый бриф и обоснование: ICP, 5 Whys, позиционирование (Dunford), Working Backwards, юнит-экономика, retention, premortem |
+| [`docs/COPY.md`](docs/COPY.md) | Тексты лендинга с историей правок |
+| [`docs/DESIGN-GLEBKUDR.md`](docs/DESIGN-GLEBKUDR.md) | Дизайн-бриф: токены, снятые с живого glebkudr.com |
+| [`docs/STEPPER-SPEC.md`](docs/STEPPER-SPEC.md) | Точная спека степпера, снятая из кода сайта |
 
-## Learn More
+## Структура
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/            App Router: page.tsx, layout.tsx, api/{assess,apply}
+components/      Hero, Stepper, Terminal, Pricing, Faq … (17 компонентов)
+app/globals.css визуальный язык (снят с glebkudr.com)
+data/           radar.json
+public/         фото, ассеты
+docs/           продуктовое обоснование
+```
