@@ -18,7 +18,7 @@ export default function WhatIs() {
           <div className="num-card">
             <span className="num mono">03</span>
             <span className="num-kicker mono">суть</span>
-            <p>Каждый строит своё, держит фронтир вместе со всеми и сам выступает.</p>
+            <p>Каждый строит своё, держит общий фронтир и сам выступает.</p>
           </div>
         </div>
         <p className="arrow-out">Здесь из «умею в ИИ» вырастают в тех, кто задаёт планку.</p>

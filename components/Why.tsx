@@ -11,7 +11,7 @@ export default function Why() {
           </div>
           <div className="why-card">
             <span className="why-ico ico-cyan"></span>
-            <p>Один человек за полем не успевает и незаметно отстаёт. Радар лаборатории держит на фронтире: охват в 10 раз шире и без выгорания.</p>
+            <p>Один человек за полем не успевает и незаметно отстаёт. Радар лаборатории держит на фронтире: охват в разы шире и без выгорания.</p>
           </div>
           <div className="why-card">
             <span className="why-ico ico-purple"></span>

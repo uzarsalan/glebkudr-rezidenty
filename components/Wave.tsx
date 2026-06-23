@@ -45,7 +45,7 @@ export default function Wave() {
           </div>
         </div>
 
-        <p className="arrow-out">Кто заходит сейчас, оказывается в самом ядре, которое мы собираем вместе.</p>
+        <p className="arrow-out">Кто заходит сейчас, оказывается в самом ядре, которое я собираю прямо теперь.</p>
       </div>
     </section>
   );

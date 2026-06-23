@@ -42,7 +42,7 @@ export default function Apply() {
       `Имя: ${payload.name}\nКонтакт: ${payload.contact}\nЧто строю с ИИ: ${payload.build}\nСсылка: ${payload.link || "—"}`
     );
     window.location.href = `mailto:hello@glebkudr.com?subject=${subject}&body=${body}`;
-    setStatus({ kind: "ok", msg: "Открыли почтовый клиент с готовым письмом. Если не открылся — напиши на hello@glebkudr.com." });
+    setStatus({ kind: "ok", msg: "Открыли почтовый клиент с готовым письмом. Если не открылся, адрес для заявки — hello@glebkudr.com." });
     setBusy(false);
   }
 
