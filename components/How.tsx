@@ -26,7 +26,7 @@ export default function How() {
               <rect x="12" y="9" width="9" height="8" rx="2" />
               <path d="M17 17v2l-2-2" />
             </svg>
-            <p>30 минут про уровень и ценности. Берут не всех.</p>
+            <p>30 минут про твой уровень и ценности лаборатории.</p>
           </li>
           <li className="step s-green">
             <span className="step-num mono">03</span>

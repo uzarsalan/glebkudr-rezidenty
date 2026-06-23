@@ -79,7 +79,7 @@ export default function Apply() {
             <p id="apply-status" className="apply-status" hidden></p>
           )}
         </form>
-        <p className="hint">Ответим за два дня. Берём не всех, и это честно.</p>
+        <p className="hint">Ответим за два дня. Дальше — интервью.</p>
       </div>
     </section>
   );
