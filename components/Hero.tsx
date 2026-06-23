@@ -8,10 +8,10 @@ export default function Hero() {
         <div className="hero-lead">
           <span className="kicker">// программа «Резиденты»</span>
           <h1 className="hero-h1">
-            В&nbsp;одиночку с&nbsp;ИИ легко отстать от&nbsp;фронтира. В&nbsp;лаборатории&nbsp;&mdash; нет.
+            ИИ ускоряется. В&nbsp;одиночку за&nbsp;ним не&nbsp;угнаться.
           </h1>
           <p className="hero-sub">
-            Закрытая лаборатория практиков, которые строят с ИИ: дипломный проект среди равных, коллективный радар фронтира, вход по интервью. Ведёт Глеб Кудрявцев, экс-CPO Skyeng.
+            Закрытая лаборатория практиков, где за фронтиром ИИ успевают вместе: дипломный проект среди равных, коллективный радар фронтира, вход по интервью. Ведёт Глеб Кудрявцев, экс-CPO Skyeng.
           </p>
           <div className="hero-cta">
             <a className="btn btn-a1 btn-lg btn-arrow" href="#apply">
