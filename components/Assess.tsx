@@ -3,100 +3,48 @@
 import { useState } from "react";
 
 type Level = "resident" | "early" | "observer";
-type Verdict = { verdict: string; level: Level; reason: string; source: string };
-
-/* Клиентская эвристика — прозрачный фолбэк без LLM (порт app.js heuristicAssess). */
-function heuristicAssess(text: string): Verdict {
-  const t = text.toLowerCase();
-  const builderSignals = [
-    "запустил", "запустила", "релиз", "продакшн", "production", "клиент", "выручк",
-    "mrr", "арр", "arr", "saas", "продукт", "агент", "agent", "пайплайн", "pipeline",
-    "rag", "fine-tun", "дообуч", "деплой", "deploy", "api", "автоматизир", "бот",
-    "модель", "llm", "веду проект", "пет-проект", "стартап", "основал", "кодю", "кодинг",
-    "вайбкод", "shipped", "шипаю", "монетиз", "воркфлоу", "workflow", "интегрир",
-  ];
-  const observerSignals = [
-    "инвест", "руковожу", "руководитель", "директор", "cto", "ceo", "фаундер компании",
-    "команда разработ", "не пишу код", "не программир", "наблюд", "слежу за", "руку на пульсе",
-    "нетехн", "менеджер", "продакт-менеджер",
-  ];
-  const earlySignals = [
-    "учусь", "начинаю", "новичок", "хочу научиться", "только начал", "изучаю", "с нуля",
-    "пробую", "не знаю с чего", "курс прошёл", "планирую", "хочу попробовать", "мечтаю",
-  ];
-
-  const count = (arr: string[]) => arr.reduce((n, w) => n + (t.includes(w) ? 1 : 0), 0);
-  const b = count(builderSignals), o = count(observerSignals), e = count(earlySignals);
-  const len = text.length;
-
-  if (o >= 1 && b === 0) {
-    return { verdict: "наблюдатель", level: "observer",
-      reason: "Похоже, ты ближе к фронтиру по интересу и роли, чем по практике руками. Тариф «Наблюдатель» даёт встречи и радар без обязательств — держать руку на пульсе.",
-      source: "эвристика" };
-  }
-  if (e >= 1 && b <= 1) {
-    return { verdict: "пока рано", level: "early",
-      reason: "Звучит как старт пути — это нормально. Лаборатория для тех, кто уже шипит с ИИ. С чего начать: доведи один пет-проект с ИИ до рабочего результата и возвращайся. Ступенька — курс Глеба «Вайбкодинг на максималках».",
-      source: "эвристика" };
-  }
-  if (b >= 2 || (b >= 1 && len >= 80)) {
-    return { verdict: "резидент", level: "resident",
-      reason: "По описанию ты уже строишь руками с ИИ и прошёл стадию новичка — это профиль резидента. Дальше решает интервью: уровень и ценности.",
-      source: "эвристика" };
-  }
-  return { verdict: "пока рано", level: "early",
-    reason: "По короткому описанию сложно увидеть, что ты доводишь до результата с ИИ. Опиши конкретный проект и свою роль в нём — или сразу подай заявку, на интервью разберёмся.",
-    source: "эвристика" };
-}
+type Verdict = { verdict: string; level: Level; reason: string };
 
 export default function Assess() {
   const [value, setValue] = useState("");
   const [result, setResult] = useState<Verdict | null>(null);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const text = value.trim();
+    setError("");
+    setResult(null);
 
     if (text.length < 8) {
-      setResult({ verdict: "пока рано", level: "early",
-        reason: "Напиши чуть подробнее — пары слов мало, чтобы оценить уровень.",
-        source: "эвристика" });
+      setError("Напиши чуть подробнее — пары слов мало, чтобы оценить уровень.");
       return;
     }
 
     setLoading(true);
-    setResult(null);
-
-    let res: Verdict | null = null;
     try {
       const r = await fetch("/api/assess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
       });
-      if (r.ok) {
-        const data = await r.json();
-        if (data && data.verdict && !data.fallback) res = { ...data, source: "ИИ-ассистент (LLM)" };
+      const data = await r.json().catch(() => null);
+      if (r.ok && data && data.verdict) {
+        setResult({ verdict: data.verdict, level: data.level, reason: data.reason });
+      } else {
+        setError("ИИ-ассистент сейчас недоступен. Попробуй ещё раз через минуту — или сразу подай заявку, на интервью разберёмся.");
       }
     } catch {
-      /* эндпоинта нет — фолбэк */
+      setError("Не получилось связаться с ассистентом. Попробуй ещё раз — или подай заявку напрямую.");
+    } finally {
+      setLoading(false);
     }
-
-    if (!res) res = heuristicAssess(text);
-    setLoading(false);
-    setResult(res);
   }
 
   const levelClass = result
     ? { resident: "r-resident", early: "r-early", observer: "r-observer" }[result.level]
     : "";
-  const note =
-    result && result.source.indexOf("LLM") < 0
-      ? "// вердикт: эвристика на стороне браузера (ключ LLM не задан)"
-      : result
-        ? "// вердикт: " + result.source
-        : "";
 
   return (
     <section id="assess" className="section">
@@ -154,7 +102,11 @@ export default function Assess() {
                 ) : result.level === "observer" ? (
                   <a className="btn btn-a2 btn-sm assess-cta" href="#apply">Узнать про наблюдателя</a>
                 ) : null}
-                <span className="src-note">{note}</span>
+                <span className="src-note">// вердикт: ИИ-ассистент (LLM)</span>
+              </div>
+            ) : error ? (
+              <div className="assess-result">
+                <p className="reason">{error}</p>
               </div>
             ) : (
               <div className="assess-result" hidden></div>

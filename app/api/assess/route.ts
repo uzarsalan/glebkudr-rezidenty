@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const API_KEY = process.env.ANTHROPIC_API_KEY || "";
-const MODEL = process.env.ANTHROPIC_MODEL || "claude-opus-4-8";
+// OpenRouter (OpenAI-совместимый API)
+const API_KEY = process.env.OPENROUTER_API_KEY || "";
+const MODEL = process.env.OPENROUTER_MODEL || "anthropic/claude-3.5-haiku";
 
 type Verdict = { verdict: string; level: "resident" | "early" | "observer"; reason: string };
 
-async function callAnthropic(text: string): Promise<Verdict> {
+async function callOpenRouter(text: string): Promise<Verdict> {
   const system =
     "Ты — ассистент отбора в закрытую ИИ-лабораторию «Резиденты» Глеба Кудрявцева. " +
     "Пользователь пишет, что он строит с ИИ. Классифицируй его в один из трёх уровней:\n" +
@@ -17,25 +18,29 @@ async function callAnthropic(text: string): Promise<Verdict> {
     "Отвечай СТРОГО валидным JSON без markdown, по схеме: " +
     '{"verdict": "<резидент|пока рано|наблюдатель>", "level": "<resident|early|observer>", "reason": "<1-2 предложения по-русски, тёплый прямой тон, по делу>"}';
 
-  const r = await fetch("https://api.anthropic.com/v1/messages", {
+  const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-api-key": API_KEY,
-      "anthropic-version": "2023-06-01",
+      authorization: "Bearer " + API_KEY,
+      // OpenRouter рекомендует указывать источник (необязательно)
+      "HTTP-Referer": "https://github.com/uzarsalan/glebkudr-rezidenty",
+      "X-Title": "Rezidenty — AI self-assessment",
     },
     body: JSON.stringify({
       model: MODEL,
       max_tokens: 400,
-      system,
-      messages: [{ role: "user", content: text }],
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: text },
+      ],
     }),
   });
 
-  if (!r.ok) throw new Error("anthropic " + r.status + " " + (await r.text()).slice(0, 200));
+  if (!r.ok) throw new Error("openrouter " + r.status + " " + (await r.text()).slice(0, 200));
   const data = await r.json();
-  const raw = (data.content && data.content[0] && data.content[0].text) || "{}";
-  const parsed = JSON.parse(raw.replace(/```json|```/g, "").trim());
+  const raw = data?.choices?.[0]?.message?.content || "{}";
+  const parsed = JSON.parse(String(raw).replace(/```json|```/g, "").trim());
 
   const levels: Record<string, Verdict["level"]> = { resident: "resident", early: "early", observer: "observer" };
   return {
@@ -56,17 +61,16 @@ export async function POST(req: Request) {
 
   if (!text) return NextResponse.json({ error: "empty text" }, { status: 400 });
 
-  // Без ключа — честно говорим клиенту использовать фолбэк.
   if (!API_KEY) {
-    return NextResponse.json({ fallback: true, reason: "no ANTHROPIC_API_KEY in env" });
+    console.error("[assess] OPENROUTER_API_KEY not set");
+    return NextResponse.json({ error: "service_unavailable" }, { status: 503 });
   }
 
   try {
-    const verdict = await callAnthropic(text);
+    const verdict = await callOpenRouter(text);
     return NextResponse.json(verdict);
   } catch (e) {
     console.error("[assess] LLM error:", (e as Error).message);
-    // LLM упал — не падаем, просим клиента сделать фолбэк.
-    return NextResponse.json({ fallback: true, reason: "llm_error" });
+    return NextResponse.json({ error: "llm_error" }, { status: 502 });
   }
 }

@@ -22,8 +22,15 @@
 1. **Радар недели** — ИИ-агент собрал 5 реальных свежих событий ИИ-фронтира через
    веб-поиск (каждое с источником), рендерится живым терминалом в hero.
 2. **ИИ-самооценка** — посетитель пишет, что строит → вердикт резидент / пока рано /
-   наблюдатель. С `ANTHROPIC_API_KEY` — живой Anthropic API; без ключа — прозрачный
-   фолбэк-эвристика в браузере.
+   наблюдатель. Работает через **OpenRouter** (OpenAI-совместимый API). Модель
+   настраивается переменной `OPENROUTER_MODEL` (по умолчанию `anthropic/claude-3.5-haiku`).
+
+## Переменные окружения
+
+| Переменная | Назначение |
+|------------|-----------|
+| `OPENROUTER_API_KEY` | ключ OpenRouter для живой ИИ-самооценки (обязателен для `/api/assess`) |
+| `OPENROUTER_MODEL` | модель (опционально, по умолчанию `anthropic/claude-3.5-haiku`) |
 
 ## Запуск
 
@@ -34,9 +41,16 @@ npm run dev        # http://localhost:3000
 npm run build && npm run start
 ```
 
-Для живой ИИ-самооценки задать в окружении `ANTHROPIC_API_KEY` (без него работает
-фолбэк). Приём заявок — `app/api/apply` (пишет в `applications.jsonl`; на проде
-точка замены на CRM/бота).
+## Docker
+
+```bash
+docker build -t rezidenty .
+docker run -p 3000:3000 -e OPENROUTER_API_KEY=sk-or-... rezidenty
+```
+
+Образ — Next.js standalone (`output: "standalone"`), слушает порт `3000`.
+Приём заявок — `app/api/apply` (пишет в `applications.jsonl`; на проде точка
+замены на CRM/бота).
 
 ## Документы
 
